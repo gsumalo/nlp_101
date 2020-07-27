@@ -1,4 +1,5 @@
 #include "filter.hpp"
+#include <cctype>
 #include <map>
 
 namespace nlp {
@@ -40,10 +41,21 @@ static const std::map<std::string, std::string> tokens = {
 
 void filter(std::istream & input, std::ostream & output)
 {
+    std::string word;
     auto character(input.get());
 
     while (!input.eof()) {
-        output.put(character);
+        if (std::isalpha(character)) {
+            word = character;
+
+            while (std::isalpha(input.peek()) && !input.eof()) {
+                word += input.get();
+            }
+
+            output << word;
+        } else {
+            output.put(character);
+        }
 
         character = input.get();
     }
