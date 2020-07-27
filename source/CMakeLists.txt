@@ -35,7 +35,7 @@ else("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 
 set(THIRD_PARTY_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/3rdPartyLibs/include" CACHE PATH "Directory containing the headers of 3rd. party libraries")
-##set(THIRD_PARTY_LIBRARY_DIR "${PROJECT_SOURCE_DIR}/../3rdPartyLibs/lib/${OS_SELECTOR}" CACHE PATH "Directory containing the 3rd. party libraries")
+set(THIRD_PARTY_LIBRARY_DIR "${PROJECT_SOURCE_DIR}/3rdPartyLibs/lib/${OS_SELECTOR}" CACHE PATH "Directory containing the 3rd. party libraries")
 
 add_definitions(-DUNICODE)
 add_definitions(-D_UNICODE)
@@ -122,4 +122,4 @@ elseif(UNIX)
 endif(WIN32)
 
 add_subdirectory(app)
-##add_subdirectory(test)
+add_subdirectory(test)
