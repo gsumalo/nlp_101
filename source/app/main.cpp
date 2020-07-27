@@ -2,6 +2,7 @@
 #include <string_view>
 #include <vector>
 #include <boost/regex/pending/unicode_iterator.hpp>
+#include "nlp/filter.hpp"
 
 namespace convenience {
 
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
     int rv = EXIT_SUCCESS;
 
     try {
-
+        nlp::filter(std::cin, std::cout);
     } catch (std::exception & e) {
         std::cerr << e.what() << std::endl;
         rv = EXIT_FAILURE;

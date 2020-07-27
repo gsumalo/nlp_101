@@ -2,10 +2,12 @@ set(PART_NAME nlp_101)
 set(OPT_SUFFIX "")
 
 set(${PART_NAME}_INC
+    nlp/filter.hpp
 )
 
 set(${PART_NAME}_SRC
     main.cpp
+    nlp/filter.cpp
 )
 
 add_executable(${PART_NAME}${OPT_SUFFIX} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})
