@@ -1,5 +1,5 @@
-set(PART_NAME nlp)
-set(OPT_SUFFIX_101)
+set(PART_NAME nlp_101)
+set(OPT_SUFFIX "")
 
 set(${PART_NAME}_INC
 )
@@ -8,9 +8,7 @@ set(${PART_NAME}_SRC
     main.cpp
 )
 
-if(WIN32)
-    add_executable(${PART_NAME}${OPT_SUFFIX} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})
-endif(WIN32)
+add_executable(${PART_NAME}${OPT_SUFFIX} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})
 
 ## --- 3rd party libs ---
 if(WIN32)

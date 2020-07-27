@@ -13,7 +13,7 @@ std::string convert_to_UTF8(std::wstring_view str)
             end(str.end());
 #elif defined (__linux__)
     static_assert(sizeof(wchar_t) == 4, "Wrong sizeof");
-    boost::u32_to_u8_iterator<std::wstring::const_iterator> begin(str.begin()), end(str.end());
+    boost::u32_to_u8_iterator<decltype(str)::const_iterator> begin(str.begin()), end(str.end());
 #else
 #error Unsupported!!
 #endif
@@ -35,9 +35,6 @@ int wmain(int argc, wchar_t *argv[])
 #elif defined (__linux__)
 int main(int argc, char *argv[])
 {
-    // This avoids problems in systems with wrong locale
-    OSless::platform::qsetenv("LC_ALL", "C");
-
     std::vector<std::string> argv_vector;
     for (int i(1); i < argc; ++i) {
         argv_vector.push_back(std::string(argv[i]));
