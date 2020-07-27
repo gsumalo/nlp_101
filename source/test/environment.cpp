@@ -1,4 +1,5 @@
-#include "environment.hpp"
+#include "test/environment.hpp"
+#include <boost/filesystem/operations.hpp>
 
 namespace nlp_test {
 
@@ -9,7 +10,7 @@ Environment::Environment(const boost::program_options::variables_map & options)
 {
     m_application_ = options[APP_OPTION].as<std::string>();
 
-    if (!std::filesystem::exists(m_application_)) {
+    if (!boost::filesystem::exists(m_application_)) {
         throw std::runtime_error(m_application_.string() + " does not exist");
     }
 }

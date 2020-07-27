@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENT_HPP_
 #define ENVIRONMENT_HPP_
 
-#include <filesystem>
+#include <boost/filesystem/path.hpp>
 #include <boost/program_options.hpp>
 
 namespace nlp_test {
@@ -17,11 +17,16 @@ public:
     Environment & operator=(const Environment &) = default;
     Environment & operator=(Environment &&) = default;
 
+    const auto & application() const
+    {
+        return m_application_;
+    }
+
     static const std::string APP_OPTION;
     static const std::string HELP_OPTION;
 
 private:
-    std::filesystem::path m_application_;
+    boost::filesystem::path m_application_;
 };
 
 }   // namespace nlp_test

@@ -1,8 +1,8 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <gtest/gtest.h>
-#include "convenience.hpp"
-#include "environment.hpp"
+#include "test/convenience.hpp"
+#include "test/environment.hpp"
 
 nlp_test::Environment env;
 
