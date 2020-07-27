@@ -1,10 +1,14 @@
 set(PART_NAME nlp_test)
 
 set(${PART_NAME}_INC
+    convenience.hpp
+    environment.hpp
 )
 
 set(${PART_NAME}_SRC
+    environment.cpp
     main.cpp
+    tests/console.cpp
 )
 
 add_executable(${PART_NAME} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})
