@@ -14,6 +14,8 @@ struct ConsoleIO
 
 static const ConsoleIO console_IO_cases[] = {
     {"Hello World!!", "Hello World!!"},
+    {"one hundred and one", "101"},
+    {"One Hundred And One", "101"},
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>
