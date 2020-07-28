@@ -38,7 +38,7 @@ namespace tokens {
     static const char * nineteen = "nineteen";
     static const char * twenty = "twenty";
     static const char * thirty = "thirty";
-    static const char * fourty = "fourty";
+    static const char * forty = "forty";
     static const char * fifty = "fifty";
     static const char * sixty = "sixty";
     static const char * seventy = "seventy";
@@ -88,7 +88,7 @@ public:
 
         m_dozens_from_20_simple_ %= (boost::spirit::ascii::no_case[tokens::twenty] [boost::spirit::qi::_val = 20]
                 | boost::spirit::ascii::no_case[tokens::thirty]                    [boost::spirit::qi::_val = 30]
-                | boost::spirit::ascii::no_case[tokens::fourty]                    [boost::spirit::qi::_val = 40]
+                | boost::spirit::ascii::no_case[tokens::forty]                     [boost::spirit::qi::_val = 40]
                 | boost::spirit::ascii::no_case[tokens::fifty]                     [boost::spirit::qi::_val = 50]
                 | boost::spirit::ascii::no_case[tokens::sixty]                     [boost::spirit::qi::_val = 60]
                 | boost::spirit::ascii::no_case[tokens::seventy]                   [boost::spirit::qi::_val = 70]
