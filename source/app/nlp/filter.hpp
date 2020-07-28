@@ -5,7 +5,8 @@
 
 namespace nlp {
 
-void filter(std::istream & input, std::ostream & output);
+void filter_1(std::istream & input, std::ostream & output);
+void filter_2(std::istream & input, std::ostream & output);
 
 }   // namespace nlp
 

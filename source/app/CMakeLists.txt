@@ -3,11 +3,13 @@ set(OPT_SUFFIX "")
 
 set(${PART_NAME}_INC
     nlp/filter.hpp
+    nlp/grammar.hpp
 )
 
 set(${PART_NAME}_SRC
     main.cpp
     nlp/filter.cpp
+    nlp/grammar.cpp
 )
 
 add_executable(${PART_NAME}${OPT_SUFFIX} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})

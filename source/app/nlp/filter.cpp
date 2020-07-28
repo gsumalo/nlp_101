@@ -1,6 +1,7 @@
 #include "filter.hpp"
 #include <cctype>
 #include <map>
+#include "grammar.hpp"
 
 namespace nlp {
 
@@ -39,25 +40,39 @@ static const std::map<std::string, std::string> tokens = {
     {"billion",   "1000000000"},
 };
 
-void filter(std::istream & input, std::ostream & output)
+//void filter_1(std::istream & input, std::ostream & output)
+//{
+//    std::string word;
+//    auto character(input.get());
+//
+//    while (!input.eof()) {
+//        if (std::isalpha(character)) {
+//            word = character;
+//
+//            while (std::isalpha(input.peek()) && !input.eof()) {
+//                word += input.get();
+//            }
+//
+//            output << word;
+//        } else {
+//            output.put(character);
+//        }
+//
+//        character = input.get();
+//    }
+//}
+
+void filter_2(std::istream & input, std::ostream & output)
 {
-    std::string word;
-    auto character(input.get());
+    std::istreambuf_iterator<char> input_it(input);
+    auto in_begin(boost::spirit::make_default_multi_pass(input_it));
+    auto in_end(boost::spirit::make_default_multi_pass(decltype(input_it)()));
 
-    while (!input.eof()) {
-        if (std::isalpha(character)) {
-            word = character;
+    std::ostreambuf_iterator<char> output_it(output);
+    Grammar<decltype(in_begin), decltype(output_it)> filter(output_it);
 
-            while (std::isalpha(input.peek()) && !input.eof()) {
-                word += input.get();
-            }
-
-            output << word;
-        } else {
-            output.put(character);
-        }
-
-        character = input.get();
+    if (!boost::spirit::qi::parse(in_begin, in_end, filter)) {
+        throw std::runtime_error("Unexpected error found");
     }
 }
 

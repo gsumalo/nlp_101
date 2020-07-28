@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     int rv = EXIT_SUCCESS;
 
     try {
-        nlp::filter(std::cin, std::cout);
+        nlp::filter_2(std::cin, std::cout);
     } catch (std::exception & e) {
         std::cerr << e.what() << std::endl;
         rv = EXIT_FAILURE;
