@@ -18,10 +18,10 @@ std::ostream & operator<<(std::ostream & out, const ConsoleIO & value)
 }
 
 static const ConsoleIO console_IO_cases[] = {
-    {"Hello World!!",       "Hello World!!"},
-    {"one hundred and one", "101"},
-    {"One Hundred And One", "101"},
-    {"zero",                "0"},
+    {"Hello World!!",       "Hello World!!"},   // Test case: No filtering case
+    {"one hundred and one", "101"},             // Test case: Example provided in specification
+    {"One Hundred And One", "101"},             // Test case: case-insensitive
+    {"zero",                "0"},               // Test case: Lowest accepted value
     {"one",                 "1"},
     {"two",                 "2"},
     {"three",               "3"},
@@ -31,7 +31,7 @@ static const ConsoleIO console_IO_cases[] = {
     {"seven",               "7"},
     {"eight",               "8"},
     {"nine",                "9"},
-    {"ten",                 "10"},
+    {"ten",                 "10"},              // Test cases: dozens
     {"eleven",              "11"},
     {"twelve",              "12"},
     {"thirteen",            "13"},
@@ -52,18 +52,18 @@ static const ConsoleIO console_IO_cases[] = {
     {"twenty-eight",        "28"},
     {"twenty-nine",         "29"},
     {"thirty",              "30"},
-    {"thirty",              "31"},
+    {"thirty-one",          "31"},
     {"fourty",              "40"},
     {"fifty",               "50"},
     {"sixty",               "60"},
     {"seventy",             "70"},
     {"eighty",              "80"},
     {"ninety",              "90"},
-    {"one hundred",         "100"},
-    {"one thousand",        "1000"},
-    {"one million",         "1000000"},
-    {"one billion",         "1000000000"},
-    {"two billion",         "2 billion"},       // This is expected because specification limited up to 10^9
+    {"one hundred",         "100"},             // Test cases: hundreds
+    {"one thousand",        "1000"},            // Test cases: thousands
+    {"one million",         "1000000"},         // Test cases: millions
+    {"one billion",         "1000000000"},      // Test case: Highest accepted value
+    {"two billion",         "2 billion"},       // Test case: Next to highest accepted value
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>
