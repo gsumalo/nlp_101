@@ -10,6 +10,8 @@
 namespace nlp {
 
 namespace tokens {
+    static const char * hyphen = "-";
+
     static const char * zero = "zero";
     static const char * one = "one";
     static const char * two = "two";
@@ -94,7 +96,10 @@ public:
                 | boost::spirit::ascii::no_case[tokens::ninety]                    [boost::spirit::qi::_val = 90]
             );
 
-        m_dozens_from_20_ %= m_dozens_from_20_simple_;
+        m_dozens_from_20_ = (m_dozens_from_20_simple_ [boost::spirit::qi::_val = boost::spirit::qi::_1]
+                >> -(boost::spirit::qi::lexeme[tokens::hyphen]
+                        >> m_natural_units_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
+            );
 
         m_all_dozens_ %= (m_dozens_to_20_
                 | m_dozens_from_20_
