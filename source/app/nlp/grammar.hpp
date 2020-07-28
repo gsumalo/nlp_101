@@ -117,10 +117,10 @@ public:
                         [boost::spirit::qi::_val = boost::spirit::qi::_r1 * 100]
                 >> -(-(+(boost::spirit::ascii::blank) >> m_conjunction_) 
                         >> +(boost::spirit::ascii::blank)
-                        >> -m_all_dozens_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
+                        >> m_all_dozens_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
 
-        m_trailing_hundreds_ = (m_other_units_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
+        m_trailing_hundreds_ = (m_natural_units_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
                 >> +(boost::spirit::ascii::blank)
                 >> m_hundreds_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_val = boost::spirit::qi::_1]
             );
@@ -142,7 +142,7 @@ public:
         m_thousands_suffix_ = (boost::spirit::ascii::no_case[tokens::thousand]
                         [boost::spirit::qi::_val = boost::spirit::qi::_r1 * 1000]
                 >> -(+(boost::spirit::ascii::blank)
-                        >> -m_trailing_general_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
+                        >> m_trailing_general_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
 
         m_trailing_thousands_ = (m_trailing_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
@@ -158,7 +158,7 @@ public:
         m_millions_suffix_ = (boost::spirit::ascii::no_case[tokens::million]
                         [boost::spirit::qi::_val = boost::spirit::qi::_r1 * 1000000]
                 >> -(+(boost::spirit::ascii::blank)
-                        >> -m_trailing_thousands_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
+                        >> m_trailing_thousands_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
 
         m_leading_millions_ = (m_leading_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
