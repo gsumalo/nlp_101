@@ -4,7 +4,7 @@
 #include "grammar.hpp"
 
 namespace nlp {
-
+/*
 static const std::map<std::string, std::string> tokens = {
     {"zero",               "0"},
     {"one",                "1"},
@@ -39,7 +39,7 @@ static const std::map<std::string, std::string> tokens = {
     {"million",      "1000000"},
     {"billion",   "1000000000"},
 };
-
+*/
 //void filter_1(std::istream & input, std::ostream & output)
 //{
 //    std::string word;
