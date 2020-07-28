@@ -45,7 +45,7 @@ namespace tokens {
     static const char * eighty = "eighty";
     static const char * ninety = "ninety";
     static const char * hundred = "hundred";
-    //static const char * thousand = "thousand";
+    static const char * thousand = "thousand";
     //static const char * million = "million";
     static const char * billion = "billion";
 }   // namespace tokens
@@ -114,13 +114,39 @@ public:
                 | boost::spirit::ascii::no_case[tokens::ampersand]
             );
 
-        m_all_hundreds_ = ((m_ambiguous_one_ | m_other_units_) [boost::spirit::qi::_val = boost::spirit::qi::_1] 
-                >> +(boost::spirit::ascii::blank)
-                >> boost::spirit::ascii::no_case[tokens::hundred] [boost::spirit::qi::_val *= 100]
+        m_hundreds_suffix_ = (boost::spirit::ascii::no_case[tokens::hundred]
+                        [boost::spirit::qi::_val = boost::spirit::qi::_r1 * 100]
                 >> -(-(+(boost::spirit::ascii::blank) >> m_conjunction_) 
                         >> +(boost::spirit::ascii::blank)
                         >> -m_all_dozens_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
+
+        m_trailing_hundreds_ = (m_other_units_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
+                >> +(boost::spirit::ascii::blank)
+                >> m_hundreds_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_val = boost::spirit::qi::_1]
+            );
+
+        m_leading_hundreds_ = ((m_ambiguous_one_ | m_other_units_) [boost::spirit::qi::_a = boost::spirit::qi::_1]
+                >> +(boost::spirit::ascii::blank)
+                >> m_hundreds_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_val = boost::spirit::qi::_1]
+            );
+
+        m_leading_general_ %= (m_leading_hundreds_
+                | m_all_dozens_
+                | m_ambiguous_one_
+            );
+
+        m_thousands_suffix_ = (boost::spirit::ascii::no_case[tokens::thousand]
+                        [boost::spirit::qi::_val = boost::spirit::qi::_r1 * 1000]
+                >> -(+(boost::spirit::ascii::blank)
+                        >> -m_trailing_hundreds_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
+            );
+
+        m_all_thousands_ = (m_leading_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
+                >> +(boost::spirit::ascii::blank)
+                >> m_thousands_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_val = boost::spirit::qi::_1]
+            );
+
 
         m_one_billion_ = (m_ambiguous_one_ [boost::spirit::qi::_val = boost::spirit::qi::_1]
                 >> +(boost::spirit::ascii::blank)
@@ -128,7 +154,8 @@ public:
             );
 
         m_structured_number_ %= (m_one_billion_
-                | m_all_hundreds_
+                | m_all_thousands_
+                | m_leading_hundreds_
                 | m_all_dozens_
                 | m_zero_
             );
@@ -143,7 +170,10 @@ private:
     boost::spirit::qi::rule<IteratorIn> m_unstructured_text_, m_conjunction_;
     boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_, m_one_unit_, m_other_units_, m_natural_units_, 
             m_all_units_, m_dozens_to_20_, m_dozens_from_20_simple_, m_dozens_from_20_, m_all_dozens_, 
-            m_ambiguous_one_, m_all_hundreds_, m_one_billion_, m_structured_number_;
+            m_ambiguous_one_, m_leading_general_, m_one_billion_, m_structured_number_;
+    boost::spirit::qi::rule<IteratorIn, uint64_t(),boost::spirit::locals<uint64_t>> m_trailing_hundreds_, 
+            m_leading_hundreds_, m_all_thousands_;
+    boost::spirit::qi::rule<IteratorIn, uint64_t(uint64_t)> m_hundreds_suffix_, m_thousands_suffix_;
 
 };
 
