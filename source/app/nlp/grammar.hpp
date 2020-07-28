@@ -7,18 +7,18 @@
 
 namespace nlp {
 
-template <typename IteratorIn, typename IteratorOut>
+template <typename IteratorIn>
 class Grammar: public boost::spirit::qi::grammar<IteratorIn>
 {
 public:
-    explicit Grammar(IteratorOut & out)
+    explicit Grammar(std::ostream & out)
         : Grammar::base_type(m_unstructured_text_), m_out_(out)
     {
-        m_unstructured_text_ = *boost::spirit::ascii::char_[std::cout << boost::lambda::_1];
+        m_unstructured_text_ = *boost::spirit::ascii::char_[m_out_ << boost::lambda::_1];
     }
 
 private:
-    IteratorOut & m_out_;
+    std::ostream & m_out_;
     boost::spirit::qi::rule<IteratorIn> m_unstructured_text_;
 
 };
