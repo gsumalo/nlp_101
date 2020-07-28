@@ -18,52 +18,64 @@ std::ostream & operator<<(std::ostream & out, const ConsoleIO & value)
 }
 
 static const ConsoleIO console_IO_cases[] = {
-    {"Hello World!!",       "Hello World!!"},   // Test case: No filtering case
-    {"one hundred and one", "101"},             // Test case: Example provided in specification
-    {"One Hundred And One", "101"},             // Test case: case-insensitive
-    {"zero",                "0"},               // Test case: Lowest accepted value
-    {"one",                 "1"},
-    {"two",                 "2"},
-    {"three",               "3"},
-    {"four",                "4"},
-    {"five",                "5"},
-    {"six",                 "6"},
-    {"seven",               "7"},
-    {"eight",               "8"},
-    {"nine",                "9"},
-    {"ten",                 "10"},              // Test cases: dozens
-    {"eleven",              "11"},
-    {"twelve",              "12"},
-    {"thirteen",            "13"},
-    {"fourteen",            "14"},
-    {"fifteen",             "15"},
-    {"sixteen",             "16"},
-    {"seventeen",           "17"},
-    {"eighteen",            "18"},
-    {"nineteen",            "19"},
-    {"twenty",              "20"},
-    {"twenty-one",          "21"},
-    {"twenty-two",          "22"},
-    {"twenty-three",        "23"},
-    {"twenty-four",         "24"},
-    {"twenty-five",         "25"},
-    {"twenty-six",          "26"},
-    {"twenty-seven",        "27"},
-    {"twenty-eight",        "28"},
-    {"twenty-nine",         "29"},
-    {"thirty",              "30"},
-    {"thirty-one",          "31"},
-    {"fourty",              "40"},
-    {"fifty",               "50"},
-    {"sixty",               "60"},
-    {"seventy",             "70"},
-    {"eighty",              "80"},
-    {"ninety",              "90"},
-    {"one hundred",         "100"},             // Test cases: hundreds
-    {"one thousand",        "1000"},            // Test cases: thousands
-    {"one million",         "1000000"},         // Test cases: millions
-    {"one billion",         "1000000000"},      // Test case: Highest accepted value
-    {"two billion",         "2 billion"},       // Test case: Next to highest accepted value
+    {"Hello World!!",               "Hello World!!"},   // Test case: No filtering case
+    {"one hundred and one",         "101"},             // Test case: Example provided in specification
+    {"One Hundred And One",         "101"},             // Test case: case-insensitive
+    {"zero",                        "0"},               // Test case: Lowest accepted value
+    {"one",                         "1"},
+    {"two",                         "2"},
+    {"three",                       "3"},
+    {"four",                        "4"},
+    {"five",                        "5"},
+    {"six",                         "6"},
+    {"seven",                       "7"},
+    {"eight",                       "8"},
+    {"nine",                        "9"},
+    {"ten",                         "10"},              // Test cases: dozens
+    {"eleven",                      "11"},
+    {"twelve",                      "12"},
+    {"thirteen",                    "13"},
+    {"fourteen",                    "14"},
+    {"fifteen",                     "15"},
+    {"sixteen",                     "16"},
+    {"seventeen",                   "17"},
+    {"eighteen",                    "18"},
+    {"nineteen",                    "19"},
+    {"twenty",                      "20"},
+    {"twenty-one",                  "21"},
+    {"twenty-two",                  "22"},
+    {"twenty-three",                "23"},
+    {"twenty-four",                 "24"},
+    {"twenty-five",                 "25"},
+    {"twenty-six",                  "26"},
+    {"twenty-seven",                "27"},
+    {"twenty-eight",                "28"},
+    {"twenty-nine",                 "29"},
+    {"thirty",                      "30"},
+    {"thirty-one",                  "31"},
+    {"fourty",                      "40"},
+    {"fifty",                       "50"},
+    {"sixty",                       "60"},
+    {"seventy",                     "70"},
+    {"eighty",                      "80"},
+    {"ninety",                      "90"},
+    {"one hundred",                 "100"},             // Test cases: hundreds
+    {"a hundred",                   "100"},
+    {"one hundred one",             "101"},
+    {"one hundred & one",           "101"},
+    {"a hundred one",               "101"},
+    {"two hundred",                 "200"},
+    {"two hundred and eleven",      "211"},
+    {"two hundred thirty-five",     "235"},
+    {"two hundred & thirty-five",   "235"},
+    {"two hundred and thirty-five", "235"},
+    {"one thousand",                "1000"},            // Test cases: thousands
+    {"a thousand",                  "1000"},
+    {"one million",                 "1000000"},         // Test cases: millions
+    {"a million",                   "1000000"},
+    {"one billion",                 "1000000000"},      // Test case: Highest accepted value
+    {"a billion",                   "1000000000"},
+    {"two billion",                 "2 billion"},       // Test case: Next to highest accepted value
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>
