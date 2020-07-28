@@ -71,6 +71,7 @@ static const ConsoleIO console_IO_cases[] = {
     {"two hundred and thirty-five", "235"},
     {"one thousand",                                                    "1000"},            // Test cases: thousands
     {"a thousand",                                                      "1000"},
+    {"one thousand one",                                                "1001"},
     {"one thousand two hundred thirty-four",                            "1234"},
     {"one thousand two hundred and thirty-four",                        "1234"},
     {"twelve thousand",                                                 "12000"},
