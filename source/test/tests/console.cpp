@@ -18,10 +18,17 @@ std::ostream & operator<<(std::ostream & out, const ConsoleIO & value)
 }
 
 static const ConsoleIO console_IO_cases[] = {
-    {"Hello World!!", "Hello World!!"},                     // Test case: No filtering case
-    {"one hundred and one", "101"},                         // Test case: Example provided in specification
-    {"One Hundred And One", "101"},                         // Test case: case-insensitive
-    {"zero",  "0"},               // Test case: Lowest accepted value
+    // Test case: No filtering case
+    {"Hello World!!", "Hello World!!"},
+
+    // Test cases: Example provided in specification (case-insensitive)
+    {"one hundred and one", "101"},
+    {"One Hundred And One", "101"},
+
+    // Test case: Lowest accepted value
+    {"zero",  "0"},
+
+    // Test cases: units
     {"one",   "1"},
     {"two",   "2"},
     {"three", "3"},
@@ -31,7 +38,9 @@ static const ConsoleIO console_IO_cases[] = {
     {"seven", "7"},
     {"eight", "8"},
     {"nine",  "9"},
-    {"ten",          "10"},              // Test cases: dozens
+
+    // Test cases: dozens
+    {"ten",          "10"},
     {"eleven",       "11"},
     {"twelve",       "12"},
     {"thirteen",     "13"},
@@ -59,7 +68,9 @@ static const ConsoleIO console_IO_cases[] = {
     {"seventy",      "70"},
     {"eighty",       "80"},
     {"ninety",       "90"},
-    {"one hundred",                 "100"},             // Test cases: hundreds
+
+    // Test cases: hundreds
+    {"one hundred",                 "100"},
     {"a hundred",                   "100"},
     {"one hundred one",             "101"},
     {"one hundred & one",           "101"},
@@ -69,9 +80,14 @@ static const ConsoleIO console_IO_cases[] = {
     {"two hundred thirty-five",     "235"},
     {"two hundred & thirty-five",   "235"},
     {"two hundred and thirty-five", "235"},
-    {"one thousand",                                                    "1000"},            // Test cases: thousands
+
+    // Test cases: thousands
+    {"one thousand",                                                    "1000"},
     {"a thousand",                                                      "1000"},
     {"one thousand one",                                                "1001"},
+    {"one thousand one hundred",                                        "1100"},
+    {"ten thousand one hundred",                                        "10100"},
+    {"one hundred thousand one hundred",                                "100100"},
     {"one thousand two hundred thirty-four",                            "1234"},
     {"one thousand two hundred and thirty-four",                        "1234"},
     {"twelve thousand",                                                 "12000"},
@@ -80,11 +96,28 @@ static const ConsoleIO console_IO_cases[] = {
     {"six hundred fifty-four thousand three hundred twenty-one",        "654321"},
     {"six hundred fifty-four thousand three hundred and twenty-one",    "654321"},
     {"six hundred and fifty-four thousand three hundred and twenty-one","654321"},
-    {"one million",                 "1000000"},         // Test cases: millions
-    {"a million",                   "1000000"},
-    {"one billion",                 "1000000000"},      // Test case: Highest accepted value
+
+    // Test cases: millions
+    {"one million",                                                                                "1000000"},
+    {"a million",                                                                                  "1000000"},
+    {"one million one",                                                                            "1000001"},
+    {"one million one hundred",                                                                    "1000100"},
+    {"one million one hundred and one",                                                            "1000101"},
+    {"one million one thousand",                                                                   "1001000"},
+    {"one million ten thousand",                                                                   "1010000"},
+    {"one million ten thousand one hundred",                                                       "1010100"},
+    {"one million one hundred thousand one hundred",                                               "1100100"},
+    {"one million one hundred thousand one hundred one",                                           "1100101"},
+    {"ten million one hundred thousand one hundred",                                               "10100100"},
+    {"one hundred million one hundred thousand one hundred",                                       "100100100"},
+    {"nine hundred eighty-seven million six hundred fifty-four thousand three hundred twenty-one", "987654321"},
+
+    // Test case: Highest accepted value
+    {"one billion",                 "1000000000"},
     {"a billion",                   "1000000000"},
-    {"two billion",                 "2 billion"},       // Test case: Next to highest accepted value
+
+    // Test case: Next to highest accepted value
+    {"two billion",                 "2 billion"},
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>
