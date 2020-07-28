@@ -14,7 +14,7 @@ namespace tokens {
 
     static const char * indefinite_one = "a";
     static const char * ampersand = "&";
-    static const char * and = "and";
+    static const char * conjunction_and = "and";
 
     static const char * zero = "zero";
     static const char * one = "one";
@@ -58,7 +58,7 @@ public:
     explicit Grammar(std::ostream & out)
         : Grammar::base_type(m_unstructured_text_), m_out_(out)
     {
-        m_zero_unit_ = (boost::spirit::ascii::no_case[tokens::zero]  [boost::spirit::qi::_val = 0]);
+        m_zero_ = (boost::spirit::ascii::no_case[tokens::zero]       [boost::spirit::qi::_val = 0]);
         m_one_unit_ = (boost::spirit::ascii::no_case[tokens::one]    [boost::spirit::qi::_val = 1]);
         m_other_units_ = (boost::spirit::ascii::no_case[tokens::two] [boost::spirit::qi::_val = 2]
                 | boost::spirit::ascii::no_case[tokens::three]       [boost::spirit::qi::_val = 3]
@@ -72,10 +72,6 @@ public:
 
         m_natural_units_ %= (m_one_unit_
                 | m_other_units_
-            );
-
-        m_all_units_ %= (m_zero_unit_
-                | m_natural_units_
             );
 
         m_dozens_to_20_ %= (boost::spirit::ascii::no_case[tokens::ten] [boost::spirit::qi::_val = 10]
@@ -107,22 +103,23 @@ public:
 
         m_all_dozens_ %= (m_dozens_to_20_
                 | m_dozens_from_20_
+                | m_natural_units_
             );
 
         m_ambiguous_one_ %= (m_one_unit_
                 | boost::spirit::ascii::no_case[tokens::indefinite_one] [boost::spirit::qi::_val = 1] 
             );
 
-        m_conjunction_ = (boost::spirit::ascii::no_case[tokens::and]
+        m_conjunction_ = (boost::spirit::ascii::no_case[tokens::conjunction_and]
                 | boost::spirit::ascii::no_case[tokens::ampersand]
             );
 
-        m_all_hundreds_ = ((m_ambiguous_one_ | m_natural_units_) [boost::spirit::qi::_val = boost::spirit::qi::_1] 
+        m_all_hundreds_ = ((m_ambiguous_one_ | m_other_units_) [boost::spirit::qi::_val = boost::spirit::qi::_1] 
                 >> +(boost::spirit::ascii::blank)
                 >> boost::spirit::ascii::no_case[tokens::hundred] [boost::spirit::qi::_val *= 100]
                 >> -(-(+(boost::spirit::ascii::blank) >> m_conjunction_) 
                         >> +(boost::spirit::ascii::blank)
-                        >> -(m_all_dozens_ | m_natural_units_) [boost::spirit::qi::_val += boost::spirit::qi::_1])
+                        >> -m_all_dozens_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
 
         m_one_billion_ = (m_ambiguous_one_ [boost::spirit::qi::_val = boost::spirit::qi::_1]
@@ -133,7 +130,7 @@ public:
         m_structured_number_ %= (m_one_billion_
                 | m_all_hundreds_
                 | m_all_dozens_
-                | m_all_units_
+                | m_zero_
             );
 
         m_unstructured_text_ = *(m_structured_number_ [m_out_ << boost::spirit::qi::_1]
@@ -144,7 +141,7 @@ public:
 private:
     std::ostream & m_out_;
     boost::spirit::qi::rule<IteratorIn> m_unstructured_text_, m_conjunction_;
-    boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_unit_, m_one_unit_, m_other_units_, m_natural_units_, 
+    boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_, m_one_unit_, m_other_units_, m_natural_units_, 
             m_all_units_, m_dozens_to_20_, m_dozens_from_20_simple_, m_dozens_from_20_, m_all_dozens_, 
             m_ambiguous_one_, m_all_hundreds_, m_one_billion_, m_structured_number_;
 
