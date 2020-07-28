@@ -2,7 +2,6 @@
 #define NLP_GRAMMAR_HPP_
 
 #include <cstdint>
-//#include <boost/phoenix/object/construct.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
