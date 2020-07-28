@@ -63,6 +63,7 @@ static const ConsoleIO console_IO_cases[] = {
     {"one thousand",        "1000"},
     {"one million",         "1000000"},
     {"one billion",         "1000000000"},
+    {"two billion",         "2 billion"},       // This is expected because specification limited up to 10^9
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>

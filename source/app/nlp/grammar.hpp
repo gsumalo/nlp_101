@@ -64,9 +64,12 @@ public:
                 | boost::spirit::ascii::no_case[tokens::nine]        [boost::spirit::qi::_val = 9]
             );
 
-        m_all_units_ %= (m_zero_unit_
-                | m_one_unit_
+        m_natural_units_ %= (m_one_unit_
                 | m_other_units_
+            );
+
+        m_all_units_ %= (m_zero_unit_
+                | m_natural_units_
             );
 
         m_one_billion_ = (m_one_unit_ [boost::spirit::qi::_val = boost::spirit::qi::_1]
@@ -86,8 +89,8 @@ public:
 private:
     std::ostream & m_out_;
     boost::spirit::qi::rule<IteratorIn> m_unstructured_text_;
-    boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_unit_, m_one_unit_, m_other_units_, m_all_units_,
-            m_one_billion_, m_structured_number_;
+    boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_unit_, m_one_unit_, m_other_units_, m_natural_units_, 
+            m_all_units_, m_one_billion_, m_structured_number_;
 
 };
 
