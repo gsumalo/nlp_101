@@ -145,9 +145,10 @@ public:
                         >> m_trailing_general_ [boost::spirit::qi::_val += boost::spirit::qi::_1])
             );
 
-        m_trailing_thousands_ = (m_trailing_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
-                >> +(boost::spirit::ascii::blank)
-                >> m_thousands_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_val = boost::spirit::qi::_1]
+        m_trailing_thousands_ = ((m_trailing_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
+                >> -(+(boost::spirit::ascii::blank)
+                        >> m_thousands_suffix_(boost::spirit::qi::_a) [boost::spirit::qi::_a = boost::spirit::qi::_1]))
+                [boost::spirit::qi::_val = boost::spirit::qi::_a]
             );
 
         m_leading_thousands_ = (m_leading_general_ [boost::spirit::qi::_a = boost::spirit::qi::_1]
