@@ -13,6 +13,8 @@ namespace tokens {
     static const char * hyphen = "-";
 
     static const char * indefinite_one = "a";
+    static const char * ampersand = "&";
+    static const char * and = "and";
 
     static const char * zero = "zero";
     static const char * one = "one";
@@ -42,7 +44,7 @@ namespace tokens {
     static const char * seventy = "seventy";
     static const char * eighty = "eighty";
     static const char * ninety = "ninety";
-    //static const char * hundred = "hundred";
+    static const char * hundred = "hundred";
     //static const char * thousand = "thousand";
     //static const char * million = "million";
     static const char * billion = "billion";
@@ -111,12 +113,25 @@ public:
                 | boost::spirit::ascii::no_case[tokens::indefinite_one] [boost::spirit::qi::_val = 1] 
             );
 
+        m_conjunction_ = (boost::spirit::ascii::no_case[tokens::and]
+                | boost::spirit::ascii::no_case[tokens::ampersand]
+            );
+
+        m_all_hundreds_ = ((m_ambiguous_one_ | m_natural_units_) [boost::spirit::qi::_val = boost::spirit::qi::_1] 
+                >> +(boost::spirit::ascii::blank)
+                >> boost::spirit::ascii::no_case[tokens::hundred] [boost::spirit::qi::_val *= 100]
+                >> -(-(+(boost::spirit::ascii::blank) >> m_conjunction_) 
+                        >> +(boost::spirit::ascii::blank)
+                        >> -(m_all_dozens_ | m_natural_units_) [boost::spirit::qi::_val += boost::spirit::qi::_1])
+            );
+
         m_one_billion_ = (m_ambiguous_one_ [boost::spirit::qi::_val = boost::spirit::qi::_1]
                 >> +(boost::spirit::ascii::blank)
                 >> boost::spirit::ascii::no_case[tokens::billion] [boost::spirit::qi::_val *= 1000000000]
             );
 
         m_structured_number_ %= (m_one_billion_
+                | m_all_hundreds_
                 | m_all_dozens_
                 | m_all_units_
             );
@@ -128,10 +143,10 @@ public:
 
 private:
     std::ostream & m_out_;
-    boost::spirit::qi::rule<IteratorIn> m_unstructured_text_;
+    boost::spirit::qi::rule<IteratorIn> m_unstructured_text_, m_conjunction_;
     boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_unit_, m_one_unit_, m_other_units_, m_natural_units_, 
             m_all_units_, m_dozens_to_20_, m_dozens_from_20_simple_, m_dozens_from_20_, m_all_dozens_, 
-            m_ambiguous_one_, m_one_billion_, m_structured_number_;
+            m_ambiguous_one_, m_all_hundreds_, m_one_billion_, m_structured_number_;
 
 };
 
