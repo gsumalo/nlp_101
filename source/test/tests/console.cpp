@@ -22,8 +22,9 @@ static const ConsoleIO console_IO_cases[] = {
     {"Hello World!!", "Hello World!!"},
 
     // Test cases: Example provided in specification (case-insensitive)
-    {"one hundred and one", "101"},
-    {"One Hundred And One", "101"},
+    {"one hundred and one",       "101"},
+    {"One Hundred And One",       "101"},
+    {"I have one hundred apples", "I have 100 apples"},
 
     // Test case: Lowest accepted value
     {"zero",  "0"},
