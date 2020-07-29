@@ -9,6 +9,7 @@
 
 namespace nlp {
 
+// Definition of tokens used by the grammar
 namespace tokens {
     static const char * ampersand = "&";
     static const char * conjunction_and = "and";

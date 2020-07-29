@@ -6,6 +6,13 @@
 
 namespace convenience {
 
+///
+/// Convenient function for passing from wide char and Unicode based characters to a UTF-8 string.
+/// \param str Input natively-encoded string (UCS-2 on Windows, UTF-32 on Linux)
+/// \return The UTF-8-encoded string of the input
+/// \note Unfortunately std::u8string is defined from C++20, so the return value is assumed to be handled as UTF-8.
+///       After the release C++20 standard, it should be explicitly defined as std::u8string.
+///
 std::string convert_to_UTF8(std::wstring_view str)
 {
 #if defined (_MSC_VER)
@@ -26,6 +33,10 @@ std::string convert_to_UTF8(std::wstring_view str)
 
 }   // namespace convenience
 
+///
+/// Full boiler-plated main function. Required to handle Unicode characters uniformly as UTF-8. The parameters are as
+/// usual.
+///
 #if defined (_MSC_VER)
 int wmain(int argc, wchar_t *argv[])
 {
@@ -47,7 +58,7 @@ int main(int argc, char *argv[])
     int rv = EXIT_SUCCESS;
 
     try {
-        nlp::filter_2(std::cin, std::cout);
+        nlp::filter(std::cin, std::cout);
     } catch (std::exception & e) {
         std::cerr << e.what() << std::endl;
         rv = EXIT_FAILURE;

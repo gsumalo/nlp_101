@@ -5,8 +5,12 @@
 
 namespace nlp {
 
-void filter_1(std::istream & input, std::ostream & output);
-void filter_2(std::istream & input, std::ostream & output);
+///
+/// Façade for the filtering grammar. It abstracts the details to parse and apply the grammar
+/// \param input Input stream with the data to be filtered
+/// \param output Output stream where the filtered / transformed data will be written to
+///
+void filter(std::istream & input, std::ostream & output);
 
 }   // namespace nlp
 

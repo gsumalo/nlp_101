@@ -8,7 +8,6 @@ set(${PART_NAME}_INC
 set(${PART_NAME}_SRC
     main.cpp
     nlp/filter.cpp
-    nlp/grammar.cpp
 )
 
 add_executable(${PART_NAME} ${${PART_NAME}_INC} ${${PART_NAME}_SRC})
