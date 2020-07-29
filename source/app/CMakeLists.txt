@@ -2,7 +2,6 @@ set(PART_NAME nlp_101)
 
 set(${PART_NAME}_INC
     nlp/filter.hpp
-    nlp/grammar.hpp
 )
 
 set(${PART_NAME}_SRC
