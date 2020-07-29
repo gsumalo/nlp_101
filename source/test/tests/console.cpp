@@ -125,6 +125,10 @@ class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>
 {
 };
 
+///
+/// NOTE: This test validates the application pipelining input and output to a child process, so only a small quantity
+//        of data must be processed in order to avoid a deadlock due to console buffers
+///
 TEST_P(ConsoleIOTest, Basic)
 {
     try {

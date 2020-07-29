@@ -5,6 +5,11 @@
 
 namespace convenience {
 
+///
+/// Convenient filter to convert any value to string
+/// \param value Input value to be converted
+/// \return The string representing the input
+///
 template <typename T>
 std::string to_string(const T & value)
 {
