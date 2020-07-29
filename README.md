@@ -49,7 +49,7 @@ were untested due the scope of this demo.
    output directory
 1. Run CMake pointing to the location where the directory source is located.
    For instance, you can do it with `cmake -DCMAKE_BUILD_TYPE=Release source`.
-1. Run the build process. For instance, you can do it with `cmake -build .`.   
+1. Run the build process. For instance, you can do it with `cmake --build .`.   
 
 As a result of a successful build, you will get two binaries (ommiting the .exe
 extension for simplicity):
