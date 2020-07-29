@@ -121,8 +121,8 @@ static const ConsoleIO console_IO_cases[] = {
     {"two billion",                 "2 billion"},
 
     // Test case: multiple lines
-    {"Hi you two!\n\nI'm testing one new project.\r\nIt took less than forty-eight hours to be done",
-            "Hi you 2!\n\nI'm testing 1 new project.\r\nIt took less than 48 hours to be done" },
+    {"Hi you two!\r\nI'm testing one new project.\r\nIt took less than forty-eight hours to be done",
+            "Hi you 2!\r\nI'm testing 1 new project.\r\nIt took less than 48 hours to be done" },
 };
 
 class ConsoleIOTest: public ::testing::TestWithParam<ConsoleIO>

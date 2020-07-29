@@ -1,6 +1,5 @@
 #include "filter.hpp"
 #include <cstdint>
-#include <boost/lambda/lambda.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/support_multi_pass.hpp>
@@ -47,7 +46,6 @@ namespace tokens {
     static const char * million = "million";
     static const char * billion = "billion";
 }   // namespace tokens
-
 
 ///
 /// This class implements the grammar able to filter numbers and transform them by means of semantic actions.
@@ -190,14 +188,23 @@ public:
                 | m_zero_
             );
 
-        m_unstructured_text_ = *(m_structured_number_ [m_out_ << boost::spirit::qi::_1]
-                | boost::spirit::ascii::char_ [m_out_ << boost::lambda::_1]
+        m_no_blanks_ %= boost::spirit::qi::as_string[boost::spirit::qi::lexeme[+(boost::spirit::ascii::char_ 
+                        - boost::spirit::ascii::blank)]]
+            ;
+
+        m_no_filter_blanks_ = (boost::spirit::ascii::blank [m_out_ << boost::spirit::qi::_1]);
+
+        m_filtered_piece_ = (m_structured_number_ [m_out_ << boost::spirit::qi::_1]
+                | m_no_blanks_ [m_out_ << boost::spirit::qi::_1]
             );
+
+        m_unstructured_text_ = *(m_filtered_piece_ >> *(+m_no_filter_blanks_ >> m_filtered_piece_));
     }
 
 private:
     std::ostream & m_out_;
-    boost::spirit::qi::rule<IteratorIn> m_unstructured_text_, m_conjunction_;
+    boost::spirit::qi::rule<IteratorIn> m_conjunction_, m_unstructured_text_, m_filtered_piece_, m_no_filter_blanks_;
+    boost::spirit::qi::rule<IteratorIn, std::string()> m_no_blanks_;
     boost::spirit::qi::rule<IteratorIn, uint64_t()> m_zero_, m_one_unit_, m_other_units_, m_natural_units_,
             m_all_units_, m_dozens_to_20_, m_dozens_from_20_simple_, m_dozens_from_20_, m_all_dozens_,
             m_ambiguous_one_, m_trailing_general_, m_leading_general_, m_one_billion_, m_structured_number_;
