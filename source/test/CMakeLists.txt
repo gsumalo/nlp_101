@@ -22,6 +22,7 @@ if(WIN32)
         debug ${THIRD_PARTY_LIBRARY_DIR}/Debug/libboost_program_options-vc141-mt-gd-x64-1_67.lib
         debug ${THIRD_PARTY_LIBRARY_DIR}/Debug/libboost_system-vc141-mt-gd-x64-1_67.lib
         debug ${THIRD_PARTY_LIBRARY_DIR}/Debug/libboost_filesystem-vc141-mt-gd-x64-1_67.lib
+        optimized ${THIRD_PARTY_LIBRARY_DIR}/Release/gtest.lib
         optimized ${THIRD_PARTY_LIBRARY_DIR}/Release/libboost_program_options-vc141-mt-x64-1_67.lib
         optimized ${THIRD_PARTY_LIBRARY_DIR}/Release/libboost_system-vc141-mt-x64-1_67.lib
         optimized ${THIRD_PARTY_LIBRARY_DIR}/Release/libboost_filesystem-vc141-mt-x64-1_67.lib
