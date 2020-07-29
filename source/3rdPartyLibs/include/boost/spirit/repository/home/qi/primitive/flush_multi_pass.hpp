@@ -55,9 +55,9 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
-        bool parse(Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+        bool parse(Iterator& first, Iterator const&
+          , Context&, Skipper const&
+          , Attribute&) const
         {
             spirit::traits::clear_queue(first, traits::clear_mode::clear_always);
             return true;
