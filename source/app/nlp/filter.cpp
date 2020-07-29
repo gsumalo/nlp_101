@@ -50,8 +50,8 @@ namespace tokens {
 
 
 ///
-/// This class implements grammar able to filter numbers and transform them by means of semantic
-//  actions.
+/// This class implements the grammar able to filter numbers and transform them by means of semantic actions.
+///
 template <typename IteratorIn>
 class Grammar: public boost::spirit::qi::grammar<IteratorIn>
 {
@@ -61,6 +61,7 @@ public:
     ///
     /// Parameterized constructor. It configure the grammar and set the output for the semantic actions
     /// \param out Output stream used to write the filtered / unfiltered data.
+    ///
     explicit Grammar(std::ostream & out)
         : Grammar::base_type(m_unstructured_text_), m_out_(out)
     {
