@@ -50,13 +50,23 @@ namespace tokens {
 }   // namespace tokens
 
 
+///
+/// This class implements grammar able to filter numbers and transform them by means of semantic
+//  actions.
 template <typename IteratorIn>
 class Grammar: public boost::spirit::qi::grammar<IteratorIn>
 {
 public:
+    Grammar() = delete;
+
+    ///
+    /// Parameterized constructor. It configure the grammar and set the output for the semantic actions
+    /// \param out Output stream used to write the filtered / unfiltered data.
     explicit Grammar(std::ostream & out)
         : Grammar::base_type(m_unstructured_text_), m_out_(out)
     {
+        // Definition of the grammar
+
         m_zero_ = (boost::spirit::ascii::no_case[tokens::zero]       [boost::spirit::qi::_val = 0]);
         m_one_unit_ = (boost::spirit::ascii::no_case[tokens::one]    [boost::spirit::qi::_val = 1]);
         m_other_units_ = (boost::spirit::ascii::no_case[tokens::two] [boost::spirit::qi::_val = 2]
@@ -195,7 +205,6 @@ private:
             m_leading_hundreds_, m_trailing_thousands_, m_leading_thousands_, m_leading_millions_;
     boost::spirit::qi::rule<IteratorIn, uint64_t(uint64_t)> m_hundreds_suffix_, m_thousands_suffix_, 
             m_millions_suffix_;
-
 };
 
 }   // namespace nlp
