@@ -1,6 +1,4 @@
 if(WIN32)
-##    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:external /external:W0")
-##    set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "/external:I ")
 elseif(UNIX)
     set(CMAKE_CXX_FLAGS_DEBUG "-g -gdwarf-4 -gstrict-dwarf -fno-omit-frame-pointer" CACHE STRING "Debug flags" FORCE)
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -O2 -g -gdwarf-4 -gstrict-dwarf -fno-omit-frame-pointer" CACHE STRING "RelWithDebInfo flags" FORCE)
